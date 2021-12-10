@@ -1,0 +1,98 @@
+@startuml
+class CommandProcessor <<(S,#FF7700) Singleton>> {
+  - CommandCatalog m_catalog
+  + void initialize()
+  + void cmdLoop()
+  - string process(string userInput)
+}
+
+class CommandCatalog <<(S,#FF7700) Singleton>> {
+  - map<string, Command> m_commandMap
+  - string commandsFile
+  + void initialize()
+  + Command getCommand(string commandName) throws CommandNotFound
+}
+
+abstract class Command {
+  + virtual string execute(string argument="")
+}
+
+class LoadCandidatesCommand {
+}
+
+class TallyCommand {
+}
+
+class SubmitBallotCommand {
+}
+
+class ParserCollection <<(S,#FF7700) Singleton>> {
+  - CandidatesFileParser m_candidatesParser
+  - CommandsFileParser m_commandsParser
+  + CandidatesFileParser getCandidatesFileParser()
+  + CommandsFileParser getCommandsFileParser()
+}
+
+class CandidatesFileParser {
+  +vector<string> readCandidates(string candidatesFileName)
+
+}
+
+class CommandsFileParser {
+  +vector<string> readCommands(string commandFileName)
+}
+ 
+
+class VoteCounter <<(S,#FF7700) Singleton>> {
+  -vector<Ballot> m_ballots
+  -vector<Candidate> m_candidates
+  +bool processBallot(string ballot)
+  +void setCandidates(vector<string> candidates)
+  +string tally()
+  +string getResults(string candidate)
+  -void excuteRound()
+  -vector<Ballot> getNonExhaustedBallots()
+  -void resetQuota()
+  -void assignBallots()
+  -void rankCandidates()
+  -vector<Candidate> getLowestRanked()
+  -void eliminateCandidate(Candidate eCandidate)
+  -vector<Candidate> evaluateQuota()
+  -void printRoundResults()
+}
+
+class Candidate {
+  -unsigned m_rank
+  -bool m_eliminated
+  -vector<Ballot> m_assignedBallots
+  +unsigned getRank()
+  +bool isEliminated()
+  +string getStats()
+}
+
+class Ballot {
+  -vector<Candidate> m_preferredCandidates
+  -bool m_exhausted
+  +vector<Candidate> getCandidates()
+  +bool isExhausted()
+}
+
+LoadCandidatesCommand <|-- Command
+TallyCommand <|-- Command
+ViewResultsCommand <|-- Command
+CommandCatalog *-- LoadCandidatesCommand
+CommandCatalog *-- TallyCommand
+CommandCatalog *-- ViewResultsCommand
+CommandCatalog *-- SubmitBallotCommand
+CommandProcessor *-- CommandCatalog
+ParserCollection *-- CandidatesFileParser
+ParserCollection *-- CommandsFileParser
+CommandCatalog .. CommandsFileParser : uses
+LoadCandidatesCommand .. CandidatesFileParser : uses
+SubmitBallotCommand <..> VoteCounter : communicate
+TallyCommand <..> VoteCounter : communicate
+LoadCandidatesCommand <..> VoteCounter : communicate
+ViewResultsCommand <..> VoteCounter : communicate
+VoteCounter *-- Candidate
+VoteCounter *-- Ballot
+@enduml

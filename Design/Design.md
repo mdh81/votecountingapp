@@ -7,6 +7,8 @@ This system supports the following use cases
 
 #### Activities
 
+The section contains activity diagrams for each of the supported use cases
+
 ##### Load Candidates
 ![Load Candidates](https://github.com/mdh81/votecountingapp/blob/master/Design/load_activity.png)
 
@@ -21,3 +23,8 @@ This system supports the following use cases
 
 ##### View Results
 ![View Results](https://github.com/mdh81/votecountingapp/blob/master/Design/results_activity.png)
+
+#### Class Diagram
+
+The list of classes and their relationships are shown in the below diagram
+![Class Diagram](https://github.com/mdh81/votecountingapp/blob/master/Design/class_diagram.png)
