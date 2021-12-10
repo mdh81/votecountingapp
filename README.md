@@ -3,6 +3,7 @@ This is a C++ application that implements a preferred voting system.
 #### Build
 
 CMake is required to build this application. Do the following on the command line to build it:
+
     $ mkdir <build_directory>
     $ cd <build_directory>
     $ cmake ../
