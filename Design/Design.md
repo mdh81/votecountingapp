@@ -8,16 +8,16 @@ This system supports the following use cases
 #### Activities
 
 ##### Load Candidates
-![Load Candidates]()
+![Load Candidates](https://github.com/mdh81/votecountingapp/blob/master/Design/load_activity.png)
 
 ##### View Candidates
-![List Candidates]()
+![List Candidates](https://github.com/mdh81/votecountingapp/blob/master/Design/list_activity.png)
 
 ##### Submit Ballot
-![Submit Ballot]()
+![Submit Ballot](https://github.com/mdh81/votecountingapp/blob/master/Design/submit_ballot_activity.png)
 
 ##### Tally Votes
-![Tally Votes]()
+![Tally Votes](https://github.com/mdh81/votecountingapp/blob/master/Design/tally_activity.png)
 
 ##### View Results
-![View Results]()
+![View Results](https://github.com/mdh81/votecountingapp/blob/master/Design/results_activity.png)
