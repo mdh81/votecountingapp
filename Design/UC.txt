@@ -1,0 +1,15 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+skinparam packageStyple rectangle
+rectangle {
+"Load Candidates" as (load)
+"Tally Votes" as (tally)
+"Submit Ballot" as (vote)
+"View Results" as (results)
+}
+:Voter: -- (vote)
+:Voter: -- (results)
+:Admin: -- (load)
+:Admin: -- (tally)
+@enduml
