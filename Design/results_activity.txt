@@ -1,0 +1,12 @@
+@startuml
+note: Display Results For A Candidate
+start
+:Get Candidate's Ballots;
+repeat :For Each Ballot;
+repeat :For Each Preference;
+:Count % of nth Preference;
+repeat while (More Candidates);
+repeat while (More Ballots)
+:Print Candidate Stats;
+stop
+@enduml

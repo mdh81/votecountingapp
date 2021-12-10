@@ -1,0 +1,18 @@
+@startuml
+(*) --> "Admin Loads Candidates File"
+
+if "File Exists" then
+    -->[true] "Build Prefixes"
+    if "Entries <= Max Supported Entries" then
+        -->[true] "Add Alphabetical Prefixes to Candidates" 
+        --> "Report Success"
+        -right-> (*)
+     else
+         ->[false] "Report System Capacity Exceeded Error"
+         -> (*)
+     endif
+else
+    ->[false] "Report File Missing Error"
+    -> (*)
+endif
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+start
+while (Winner Not Found) is (true)
+    :Get Non-Exhausted Ballots;
+    :Set Quota = (Number of Non-Exhausted Ballots / 2) + 1;
+    :Assign Ballots to Candidates as per Preference;
+    :Rank Candidates;
+    if (Tie for Lowest Rank?) then (true)
+        :Pick Random Candidate with Lowest Rank;
+        :Eliminate Picked Candidate;
+    else (false)
+        :Eliminate Lowest Ranked Candidate;
+    endif
+    if (More than One Candidate in Contention) then (true)
+        :Evaluate Quota;
+        if (More than One Candidate Qualifies) then (true)
+            :Print List of Candidates Eliminated;
+            :Print List of Candidates Remaining;
+            :Move Candiates in Contention to Next Round;
+        else (false)
+            break
+        endif
+    else (false)
+        break 
+    endif
+
+endwhile(false)
+:Declare Winner;
+stop
+@enduml

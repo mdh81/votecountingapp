@@ -1,0 +1,12 @@
+@startuml
+(*) --> "Voter Lists Candidates"
+
+if "Candiates Loaded" then
+  -->[true] "Show Prefix Listing"
+  --> "Prompt Ballot Entry"
+  -right-> (*)
+else
+  ->[false] "Report System Error"
+  -> (*)
+endif
+@enduml

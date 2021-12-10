@@ -1,0 +1,22 @@
+@startuml
+(*) --> "Voter Submits Ballot"
+--> Validate Ballot
+if "Has Duplicate Choices" then
+  -->[true] "Ignore Duplicates"
+  --> Validate Choices
+else
+  -->[false] Validate Choices
+endif
+if "Has Invalid Choices" then
+  -->[true] "Skip Invalid Choices"
+  if "validEntries >=1"
+    -->[true] "Submit Ballot for Processing"
+  else
+    -->[false] "Reject Ballot"
+  endif
+else
+  -->[false] "Submit Ballot for Processing"
+endif
+
+-->(*)
+@enduml
