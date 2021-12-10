@@ -17,8 +17,11 @@ be entered into a command prompt. Type help at the prompt to see supported comma
 #### Contents
 
 ##### Design
-This sub-directory contains design documents
+This sub-directory contains design documents. 
 
-Design.md: Top-level design document
-*.txt: UML descriptions for various UML diagrams
-*.png: PlantUML rendering of UML diagrams 
+* Design.md: Top-level design document. This document has the following:
+  * Use Case Diagram
+  * Activity Diagrams 
+  * Class Diagram
+* \*.txt files containing UML descriptions for the above diagrams
+* \*.png files PlantUML renderings of the above diagrams
