@@ -20,15 +20,15 @@ void CommandCatalog::initialize(const std::string& commandsFileName) {
         } else if (cmd == "help") {
             m_commandsMap.try_emplace(cmd, nullptr); // TODO: Implement help command
         } else {
-            cerr << cmd << endl;
             throw std::runtime_error("Command '" + cmd + "' does not have an implementation");
         }
     }
 }
 
 Command& CommandCatalog::getCommand(const string& commandName) { 
-
-    //TODO: Temp code to get it to build
-    m_commandsMap.try_emplace("Foo");
-    return *m_commandsMap["Foo"].get();
+    cerr << "Finding command " << commandName << endl;
+    auto itr = m_commandsMap.find(commandName);
+    if (itr == m_commandsMap.end()) throw std::runtime_error(commandName + " is not a valid command");
+    cerr << "Here!!" << endl;
+    return *itr->second.get();
 }

@@ -29,5 +29,28 @@ TEST(CommandCatalog, TestInitialize) {
     ofs_1.open("supportedcommands.txt");
     ofs_1 << "load\nresults\nlist\ntally\nhelp\n";
     ofs_1.close();
-    catalog.initialize("supportedcommands.txt");
+    EXPECT_NO_THROW({
+        catalog.initialize("supportedcommands.txt");
+    }) << "Exception thrown unexpectedly!";
 }
+
+TEST(CommandCatalog, TestGetCommand) {
+    CommandCatalog& catalog = CommandCatalog::getInstance();
+    ofstream ofs;
+    ofs.open("supportedcommands.txt");
+    ofs << "load\nresults\nlist\ntally\nhelp\n";
+    ofs.close();
+    catalog.initialize("supportedcommands.txt");
+    EXPECT_NO_THROW({
+        Command& cmd = catalog.getCommand("load");
+    }) << "Exception thrown unexpectedly!";
+    EXPECT_THROW({
+        try {
+            Command& cmd = catalog.getCommand("foo");
+        } catch (std::runtime_error& ex) {
+            EXPECT_STREQ("foo is not a valid command", ex.what());
+            throw;
+        }
+    }, std::runtime_error) << "Exception was not thrown for an invalid command!";
+}
+
