@@ -1,5 +1,5 @@
-#ifndef VAPP_PARSER_H
-#define VAPP_PARSER_H
+#ifndef VCAPP_PARSER_H
+#define VCAPP_PARSER_H
 
 #include <string>
 
