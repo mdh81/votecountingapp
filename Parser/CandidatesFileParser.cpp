@@ -5,6 +5,11 @@
 #include <iostream>
 using namespace std;
 
+void CandidatesFileParser::parseFile(const string& fileName) {
+    m_candidatesList.clear();
+    FileParser::parseFile(fileName);
+}
+
 const vector<string>& CandidatesFileParser::getCandidates() {
     if (m_candidatesList.empty()) {
         // Assume there are 10 candidates for memory allocation purposes 

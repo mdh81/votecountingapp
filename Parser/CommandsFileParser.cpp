@@ -3,6 +3,11 @@
 #include <sstream>
 using namespace std;
 
+void CommandsFileParser::parseFile(const string& fileName) {
+    m_commandsMap.clear();
+    FileParser::parseFile(fileName);
+}
+
 // NOTE: This method leans on RVO to eliminate copies of returned data
 vector<string> CommandsFileParser::getCommands() {
     if (m_commandsMap.empty()) {
