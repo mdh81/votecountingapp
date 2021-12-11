@@ -4,6 +4,11 @@ configure_file("./candidates.txt"
  COPYONLY
  )
 
+configure_file("./commands.txt"
+ ${CMAKE_CURRENT_BINARY_DIR}
+ COPYONLY
+ )
+
 # test executables
 add_executable(candidatesparser_test CandidatesParser_gt.cpp)
 target_link_libraries(candidatesparser_test gtest_main parser)

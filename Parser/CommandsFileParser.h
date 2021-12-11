@@ -9,9 +9,9 @@
 class CommandsFileParser : public FileParser {
     public:
         std::vector<std::string> getCommands();
-        std::vector<std::string> getCommandArguments(const std::string& command) const;
+        std::string getCommandArgument(const std::string& command) const;
     private:
-        using CommandsMap = std::unordered_map<std::string, std::vector<std::string>>;
+        using CommandsMap = std::unordered_map<std::string, std::string>;
         CommandsMap m_commandsMap;
 };
 
