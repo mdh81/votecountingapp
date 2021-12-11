@@ -16,6 +16,9 @@ target_link_libraries(candidatesparser_test gtest_main parser)
 add_executable(commandsparser_test CommandsParser_gt.cpp)
 target_link_libraries(commandsparser_test gtest_main parser)
 
+add_executable(parsercollection_test ParserCollection_gt.cpp)
+target_link_libraries(parsercollection_test gtest_main parser)
+
 # include source files directly
 include_directories("../")
 
