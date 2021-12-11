@@ -1,6 +1,7 @@
 #ifndef VCAPP_COMMAND_PROCESSOR_H
 #define VCAPP_COMMAND_PROCESSOR_H
 #include <string>
+#include "CommandCatalog.h"
 
 class CommandProcessor {
     public:
@@ -8,6 +9,7 @@ class CommandProcessor {
             static CommandProcessor instance;
             return instance;
         }
+        void initialize(const std::string& commandsFileName);
     
     public:
         CommandProcessor(CommandProcessor&) = delete;
@@ -15,7 +17,11 @@ class CommandProcessor {
         CommandProcessor& operator=(CommandProcessor&) = delete;
         CommandProcessor& operator=(CommandProcessor&&) = delete;
     private:
-        CommandProcessor() = default;
+        CommandProcessor() : m_commandCatalog(CommandCatalog::getInstance()) {}
+
+    private:
+        CommandCatalog& m_commandCatalog;
+
 };
 
 #endif

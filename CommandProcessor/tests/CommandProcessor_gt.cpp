@@ -9,32 +9,19 @@ TEST(CommandProcessor, TestSingleton) {
     ASSERT_EQ(&cmdProc_1, &cmdProc_2) << "Multiple instances of a singleton!";
 }
 
-/*TEST(CommandCatalog, TestInitialize) {
-    CommandCatalog& catalog = CommandCatalog::getInstance();
-    // Test loading invalid commands
-    ofstream ofs("unsupportedcommands.txt");
-    ofs << "nonExistentCommand" << endl;
+TEST(CommandProcessor, TestInitialize) {
+    CommandProcessor& cmdProc = CommandProcessor::getInstance();
+    // Test loading commands file 
+    ofstream ofs;
+    ofs.open("commands.txt");
+    ofs << "load\nresults\nlist\ntally\nhelp\n";
     ofs.close();
-    EXPECT_THROW({
-        try {
-            catalog.initialize("unsupportedcommands.txt");
-        } catch (std::runtime_error& ex) {
-            EXPECT_STREQ("Command 'nonExistentCommand' does not have an implementation", ex.what());
-            throw;
-        }
-    }, std::runtime_error);
-
-    // Test loading valid commands
-    ofstream ofs_1;
-    ofs_1.open("supportedcommands.txt");
-    ofs_1 << "load\nresults\nlist\ntally\nhelp\n";
-    ofs_1.close();
     EXPECT_NO_THROW({
-        catalog.initialize("supportedcommands.txt");
+        cmdProc.initialize("commands.txt");
     }) << "Exception thrown unexpectedly!";
 }
 
-TEST(CommandCatalog, TestGetCommand) {
+/*TEST(CommandCatalog, TestGetCommand) {
     CommandCatalog& catalog = CommandCatalog::getInstance();
     ofstream ofs;
     ofs.open("supportedcommands.txt");
