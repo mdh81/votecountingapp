@@ -5,7 +5,8 @@ add_library(
     SubmitBallotCommand.cpp 
     TallyCommand.cpp 
     ViewResultsCommand.cpp 
-    CommandCatalog.cpp)
+    CommandCatalog.cpp
+    CommandProcessor.cpp)
 
 include_directories("../Parser/")
 
