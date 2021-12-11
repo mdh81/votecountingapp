@@ -14,4 +14,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
+# enable test discovery
+enable_testing()
+
+# add service sub-directories
+add_subdirectory(Parser)
+
 add_executable(votecountingapp main.cpp) 
