@@ -11,7 +11,7 @@ TEST(CommandsFileParser, TestDefaultState) {
     ASSERT_EQ(CommandsFileParser().getCommands().size(), 0) << "Incorrect default state!"; 
     EXPECT_THROW({
         try {
-            CommandsFileParser().getCommandArgument("foo");
+            CommandsFileParser().getCommandArguments("foo");
         } catch (std::runtime_error& ex) {
             EXPECT_STREQ("Command 'foo' undefined", ex.what());
             throw;
@@ -20,6 +20,9 @@ TEST(CommandsFileParser, TestDefaultState) {
 }
 
 TEST(CommandsFileParser, TestValidFileHandling) {
+    ofstream ofs("commands.txt");
+    ofs << "load\ntally\nresults\nlist" << endl;
+    ofs.close();
     CommandsFileParser cparser;
     cparser.parseFile("commands.txt");
     vector<string> commands = cparser.getCommands();
@@ -29,12 +32,16 @@ TEST(CommandsFileParser, TestValidFileHandling) {
 }
 
 TEST(CommandsFileParser, TestCommandArguments) {
+    ofstream ofs("commands.txt");
+    ofs << "load <Candidates File>\ntally\nresults <Candidate Name>\nlist\nmulti_arg_command <arg 1> <arg 2> <arg 3>" << endl;
+    ofs.close();
     CommandsFileParser cparser;
     cparser.parseFile("commands.txt");
     vector<string> commands = cparser.getCommands();
-    ASSERT_EQ(cparser.getCommandArgument("load"), "<Candidates File>") << "Incorrect argument for load command!";
-    ASSERT_EQ(cparser.getCommandArgument("results"), "<Candidate Name>") << "Incorrect argument for results command!";
-    ASSERT_EQ(cparser.getCommandArgument("list"), "") << "Expected no arguments for list command!";
+    ASSERT_EQ(cparser.getCommandArguments("load")[0], "Candidates File") << "Incorrect argument for load command!";
+    ASSERT_EQ(cparser.getCommandArguments("results")[0], "Candidate Name") << "Incorrect argument for results command!";
+    ASSERT_EQ(cparser.getCommandArguments("list").size(), 0) << "Expected no arguments for list command!";
+    ASSERT_EQ(cparser.getCommandArguments("multi_arg_command")[1], "arg 2") << "Incorrect parsing of commands with multiple arguments";
 }
 
 TEST(CandidateParser, TestNonExistentFileHandling) {

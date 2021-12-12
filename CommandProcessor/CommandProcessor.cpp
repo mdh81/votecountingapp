@@ -26,6 +26,9 @@ void CommandProcessor::cmdLoop(istream& inputStream, ostream& outputStream) cons
             }
             Command& command = m_commandCatalog.getCommand(cmdName);
         } catch(InvalidCommandException& ex) {
+            // User might have entered candidate prefix , in which case the
+            // command is a submit ballot command. Check the first word against
+            // candidate prefixes
             outputStream << "Invalid command. Try help" << endl;
         }
         outputStream << "vcapp > ";
