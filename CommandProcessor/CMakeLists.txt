@@ -8,6 +8,6 @@ add_library(
     CommandCatalog.cpp
     CommandProcessor.cpp)
 
-include_directories("../Parser/")
+include_directories(${CMAKE_SOURCE_DIR}/Parser/)
 
 add_subdirectory(tests)
