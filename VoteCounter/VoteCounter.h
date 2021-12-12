@@ -3,6 +3,7 @@
 
 #include "Candidate.h"
 #include <vector>
+#include <unordered_map>
 
 class VoteCounter {
     public:
@@ -12,7 +13,7 @@ class VoteCounter {
         }
         void setCandidates(std::vector<Candidate>&& candidates);
         const std::vector<Candidate>& getCandidates() const { return m_candidates; }
-
+        const Candidate& getCandidate(const std::string& prefix) const;
     public:
         VoteCounter(VoteCounter&) = delete;
         VoteCounter(VoteCounter&&) = delete;
@@ -20,8 +21,11 @@ class VoteCounter {
         VoteCounter& operator=(VoteCounter&&) = delete;
     private:
         VoteCounter() = default; 
-        std::vector<Candidate> m_candidates;
-
+        using CandidateVector = std::vector<Candidate>;
+        using CandidateReference = CandidateVector::iterator;
+        using CandidatePrefixMap = std::unordered_map<std::string, CandidateReference>;
+        CandidateVector m_candidates;
+        CandidatePrefixMap m_candidatePrefixMap;
 };
 
 
