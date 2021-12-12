@@ -1,6 +1,7 @@
 #ifndef VCAPP_COMMAND_PROCESSOR_H
 #define VCAPP_COMMAND_PROCESSOR_H
 #include <string>
+#include <iostream>
 #include "CommandCatalog.h"
 
 class CommandProcessor {
@@ -10,6 +11,7 @@ class CommandProcessor {
             return instance;
         }
         void initialize(const std::string& commandsFileName);
+        void cmdLoop(std::istream& inputStream = std::cin, std::ostream& outputStream = std::cout) const;
     
     public:
         CommandProcessor(CommandProcessor&) = delete;
