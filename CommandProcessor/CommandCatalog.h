@@ -9,7 +9,7 @@
 class CommandCatalog {
     public:
         Command& getCommand(const std::string& commandName);
-        void initialize(const std::string& commandsFileName);
+        void initialize(const std::string& commandsFileName); 
     
     public:
         static CommandCatalog& getInstance() {

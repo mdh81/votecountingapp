@@ -1,6 +1,7 @@
 #include "CommandCatalog.h"
 #include "ParserCollection.h"
 #include "CommandsFileParser.h"
+#include "Exceptions.h"
 #include <iostream>
 using namespace std;
 
@@ -26,9 +27,7 @@ void CommandCatalog::initialize(const std::string& commandsFileName) {
 }
 
 Command& CommandCatalog::getCommand(const string& commandName) { 
-    cerr << "Finding command " << commandName << endl;
     auto itr = m_commandsMap.find(commandName);
-    if (itr == m_commandsMap.end()) throw std::runtime_error(commandName + " is not a valid command");
-    cerr << "Here!!" << endl;
+    if (itr == m_commandsMap.end()) throw InvalidCommandException(commandName + " is not a valid command");
     return *itr->second.get();
 }
