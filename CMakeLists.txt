@@ -20,5 +20,6 @@ enable_testing()
 # add service sub-directories
 add_subdirectory(Parser)
 add_subdirectory(CommandProcessor)
+add_subdirectory(VoteCounter)
 
 add_executable(votecountingapp main.cpp) 

@@ -8,6 +8,8 @@ add_library(
     CommandCatalog.cpp
     CommandProcessor.cpp)
 
-include_directories(${CMAKE_SOURCE_DIR}/Parser/)
+include_directories(
+    ${CMAKE_SOURCE_DIR}/Parser/
+    ${CMAKE_SOURCE_DIR}/VoteCounter)
 
 add_subdirectory(tests)
