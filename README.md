@@ -17,6 +17,7 @@ be entered into a command prompt. Type help at the prompt to see supported comma
 #### Test
 
 Google tests are used for unit testing. Each sub-directory contains tests for every method or for every important functional piece in the implementation classes. The build step above will fetch google test and will build all tests. To run all tests do the following:
+
     $ mkdir <build_directory>
     $ ctest .
 
