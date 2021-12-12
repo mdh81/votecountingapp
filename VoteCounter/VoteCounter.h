@@ -10,7 +10,8 @@ class VoteCounter {
             static VoteCounter instance;
             return instance;
         }
-        void setCandidates(std::vector<Candidate>& candidates);
+        void setCandidates(std::vector<Candidate>&& candidates);
+        const std::vector<Candidate>& getCandidates() const { return m_candidates; }
 
     public:
         VoteCounter(VoteCounter&) = delete;
@@ -19,6 +20,7 @@ class VoteCounter {
         VoteCounter& operator=(VoteCounter&&) = delete;
     private:
         VoteCounter() = default; 
+        std::vector<Candidate> m_candidates;
 
 };
 

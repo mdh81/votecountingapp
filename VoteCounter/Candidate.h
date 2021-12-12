@@ -13,9 +13,10 @@ class Candidate {
         void setEliminated(bool eliminated) { m_eliminated = eliminated; }
 
     public:
-        // Candidates are distinct objects. Disable move and copy construction
+        // Candidates are distinct objects. Disable copy construction
         Candidate(Candidate&) = delete;
-        Candidate(Candidate&&) = delete; 
+        // Define move constructor to be able to transfer owenership
+        Candidate(Candidate&&) = default; 
         // Assignment of candidate objects is an invalid operation
         Candidate& operator=(Candidate&) = delete;
         Candidate& operator=(Candidate&&) = delete;

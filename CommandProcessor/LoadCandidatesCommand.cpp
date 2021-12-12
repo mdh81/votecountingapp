@@ -2,6 +2,7 @@
 #include "ParserCollection.h"
 #include "CandidatesFileParser.h"
 #include "Candidate.h"
+#include "VoteCounter.h"
 #include <string>
 #include <vector>
 using namespace std;
@@ -13,6 +14,7 @@ string LoadCandidatesCommand::execute(const vector<string>& arguments) {
     }
     
     // Load candidates file 
+    // NOTE: The command assumes that the candidates file doesn't contain duplicates 
     string output;
     CandidatesFileParser& parser = ParserCollection::getInstance().getCandidatesFileParser();
     parser.parseFile(arguments.at(0));
@@ -20,11 +22,17 @@ string LoadCandidatesCommand::execute(const vector<string>& arguments) {
 
     // Build candidate objects and transfer ownership to VoteCounter
     vector<Candidate> candidateObjects;
-    auto& candidateNames = parser.getCandidates(); 
-    unsigned char prefix = 'A';
-    for (auto candidateName : candidateNames) {
-        Candidate candidate(candidateName, std::to_string(++prefix));
+    auto& candidateNames = parser.getCandidates();
+    if (candidateNames.size() > 26) {
+        output += "\nMaximum number of candidates exceeded!";
+        return output;
     }
+
+    char prefix = 'A';
+    for (auto candidateName : candidateNames) {
+        candidateObjects.emplace_back(candidateName, string(1, prefix++));
+    }
+    VoteCounter::getInstance().setCandidates(std::move(candidateObjects)); 
 
     return output;
 }
