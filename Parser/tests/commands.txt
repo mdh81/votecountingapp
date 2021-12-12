@@ -1,5 +1,0 @@
-load <Candidates File>
-list
-tally
-results <Candidate Name>
-multi_arg_command <arg 1> <arg 2> <arg 3>
