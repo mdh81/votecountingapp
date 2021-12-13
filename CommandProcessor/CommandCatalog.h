@@ -16,9 +16,9 @@ class CommandCatalog {
             static CommandCatalog instance;
             return instance;
         }
-        CommandCatalog(CommandCatalog&) = delete;
+        CommandCatalog(const CommandCatalog&) = delete;
         CommandCatalog(CommandCatalog&&) = delete;
-        CommandCatalog& operator=(CommandCatalog&) = delete;
+        CommandCatalog& operator=(const CommandCatalog&) = delete;
         CommandCatalog& operator=(CommandCatalog&&) = delete;
     
     private:

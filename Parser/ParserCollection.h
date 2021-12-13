@@ -28,7 +28,7 @@ class ParserCollection {
         ParserCollection(const ParserCollection&) = delete;
         ParserCollection(ParserCollection&&) = delete;
         // Assignments of the single instance to itself is meaningless, disallow it 
-        ParserCollection& operator=(ParserCollection&) = delete;
+        ParserCollection& operator=(const ParserCollection&) = delete;
         ParserCollection& operator=(ParserCollection&&) = delete;
 
     private:

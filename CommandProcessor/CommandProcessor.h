@@ -14,9 +14,9 @@ class CommandProcessor {
         void cmdLoop(std::istream& inputStream = std::cin, std::ostream& outputStream = std::cout) const;
     
     public:
-        CommandProcessor(CommandProcessor&) = delete;
+        CommandProcessor(const CommandProcessor&) = delete;
         CommandProcessor(CommandProcessor&&) = delete;
-        CommandProcessor& operator=(CommandProcessor&) = delete;
+        CommandProcessor& operator=(const CommandProcessor&) = delete;
         CommandProcessor& operator=(CommandProcessor&&) = delete;
     private:
         CommandProcessor() : m_commandCatalog(CommandCatalog::getInstance()) {}

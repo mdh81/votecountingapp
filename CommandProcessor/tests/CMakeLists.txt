@@ -11,6 +11,9 @@ target_link_libraries(loadcandidates_test gtest_main parser votecounter commandp
 add_executable(listcandidates_test ListCandidates_gt.cpp)
 target_link_libraries(listcandidates_test gtest_main parser votecounter commandprocessor)
 
+add_executable(submitballot_test SubmitBallot_gt.cpp)
+target_link_libraries(submitballot_test gtest_main parser votecounter commandprocessor)
+
 # include path for service's headers
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 
@@ -20,3 +23,4 @@ gtest_discover_tests(commandcatalog_test)
 gtest_discover_tests(commandprocessor_test)
 gtest_discover_tests(loadcandidates_test)
 gtest_discover_tests(listcandidates_test)
+gtest_discover_tests(submitballot_test)

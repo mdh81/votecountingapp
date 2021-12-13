@@ -43,6 +43,25 @@ TEST(CommandProcessor, TestInvalidCommand) {
     cmdThread.join();
 }
 
+TEST(CommandProcessor, TestEmptyCommand) {
+    istringstream inputStream("\n");
+    ostringstream outputStream;
+    auto cmdLoop = [&inputStream, &outputStream]() {
+        CommandProcessor& cmdProc = CommandProcessor::getInstance();
+        cmdProc.cmdLoop(inputStream, outputStream);
+    };
+    thread cmdThread(cmdLoop);
+    this_thread::sleep_for(chrono::seconds(1)); 
+
+    // Check the message in the output stream and assert no message is present and the empty enter was consumed correctly 
+    ASSERT_STREQ(outputStream.str().data(), "vcapp > vcapp > ") << "Unexpected output for new line";
+
+    // Send exit command. Otherwise the test will timeout 
+    string cmd = "exit\n";
+    inputStream >> cmd;
+    cmdThread.join();
+}
+
 TEST(CommandProcessor, TestSingleton) {
     CommandProcessor& cmdProc_1 = CommandProcessor::getInstance();
     CommandProcessor& cmdProc_2 = CommandProcessor::getInstance();

@@ -1,5 +1,6 @@
 #include "VoteCounter.h"
 #include "Exceptions.h"
+#include <iostream>
 using namespace std;
 
 void VoteCounter::setCandidates(vector<Candidate>&& candidates) {
@@ -14,4 +15,19 @@ const Candidate& VoteCounter::getCandidate(const std::string& prefix) const {
    auto itr = m_candidatePrefixMap.find(prefix);
    if (itr == m_candidatePrefixMap.end()) throw InvalidCandidateException(prefix + " is not a valid candidate"); 
    return itr->second.operator*();
+}
+
+Candidate::CandidateReference VoteCounter::getCandidateReference(const std::string& prefix) const {
+    auto itr = m_candidatePrefixMap.find(prefix);
+    if( itr == m_candidatePrefixMap.end()) throw InvalidCandidateException(prefix + " is not a valid candidate");
+    return itr->second;
+}
+
+bool VoteCounter::hasCandidate(const std::string& prefix) const {
+    auto itr = m_candidatePrefixMap.find(prefix);
+    return m_candidatePrefixMap.find(prefix) != m_candidatePrefixMap.end();
+}
+
+void VoteCounter::processBallot(Ballot&& ballot) {
+    m_ballots.push_back(std::move(ballot));
 }

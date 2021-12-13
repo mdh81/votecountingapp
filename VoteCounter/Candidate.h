@@ -1,6 +1,7 @@
 #ifndef VCAPP_CANDIDATE_H
 #define VCAPP_CANDIDATE_H
 #include <string>
+#include <vector>
 
 class Candidate {
     public:
@@ -14,12 +15,16 @@ class Candidate {
 
     public:
         // Candidates are distinct objects. Disable copy construction
-        Candidate(Candidate&) = delete;
+        Candidate(const Candidate&) = delete;
         // Define move constructor to be able to transfer owenership
         Candidate(Candidate&&) = default; 
         // Assignment of candidate objects is an invalid operation
-        Candidate& operator=(Candidate&) = delete;
+        Candidate& operator=(const Candidate&) = delete;
         Candidate& operator=(Candidate&&) = delete;
+
+        using CandidateVector = std::vector<Candidate>;
+        using CandidateReference = std::vector<Candidate>::const_iterator;
+        using CandidateReferences = std::vector<CandidateReference>;
 
     private:
         const std::string m_name;

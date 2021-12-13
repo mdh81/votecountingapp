@@ -2,28 +2,29 @@
 #define VCAPP_BALLOT_H
 
 #include "Candidate.h"
-#include "Types.h"
 #include <vector>
-#include <memory>
 
 class Ballot {
     public:
-        Ballot(const VCTypes::CandidateReferences& candidates) : m_candidates(candidates) { m_exhausted = false; }
-        VCTypes::CandidateReferences getCandidates() const { return m_candidates; }
+        Ballot(const Candidate::CandidateReferences& candidates) : m_candidates(candidates) { m_exhausted = false; }
+        Candidate::CandidateReferences getCandidates() const { return m_candidates; }
         void setExhausted() { m_exhausted = true; }
         bool isExhausted() const { return m_exhausted; }
 
     public:
         // Ballots are distinct objects. Disable copy construction
-        Ballot(Ballot&) = delete;
+        Ballot(const Ballot&) = delete;
         // Define move constructor to be able to transfer owenership
         Ballot(Ballot&&) = default; 
         // Assignment of ballot objects is an invalid operation
-        Ballot& operator=(Ballot&) = delete;
+        Ballot& operator=(const Ballot&) = delete;
         Ballot& operator=(Ballot&&) = delete;
 
+    public:
+        using BallotVector = std::vector<Ballot>;
+
     private:
-        VCTypes::CandidateReferences m_candidates;
+        Candidate::CandidateReferences m_candidates;
         bool m_exhausted;
 };
 
