@@ -6,7 +6,8 @@ add_library(
     TallyCommand.cpp 
     ViewResultsCommand.cpp 
     CommandCatalog.cpp
-    CommandProcessor.cpp)
+    CommandProcessor.cpp
+    HelpCommand.cpp)
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/Parser/

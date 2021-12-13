@@ -5,11 +5,15 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <vector>
 
 class CommandCatalog {
     public:
         Command& getCommand(const std::string& commandName);
+        // No throw alternative to getCommand
+        bool hasCommand(const std::string& commandName) { return m_commandsMap.find(commandName) != m_commandsMap.end(); }
         void initialize(const std::string& commandsFileName); 
+        std::vector<std::string> getAllCommands() const;
     
     public:
         static CommandCatalog& getInstance() {
