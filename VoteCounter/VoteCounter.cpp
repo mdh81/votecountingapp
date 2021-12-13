@@ -79,7 +79,7 @@ bool VoteCounter::executeCountingRound(vector<Candidate*>& candidatesInContentio
     candidatesMeetingQuota.reserve(candidatesInContention.size());
     for (auto& ballotRef : nonExhaustedBallots) {
         auto preferredCandidate = ballotRef->getPreferredCandidate();
-        const_cast<Candidate*>(preferredCandidate)->assignBallot();
+        preferredCandidate->assignBallot();
         if (preferredCandidate->getNumberOfAssignedBallots() >= quota) {
             candidatesMeetingQuota.push_back(preferredCandidate);
         }
