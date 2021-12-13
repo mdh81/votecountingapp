@@ -24,10 +24,6 @@ string SubmitBallotCommand::execute(const vector<string>& arguments) {
         candidates.push_back(voteCounter.getCandidates({candidatePrefix}).at(0));
     }
     if(candidates.empty()) { return "Ballot Rejected: No valid choices on the ballot"; } 
-    cerr << "Adding ballot " << endl;
-    for (auto c : candidates) {
-        cerr << c->getPrefix() << " ";
-    } 
     voteCounter.addBallot(std::make_unique<Ballot>(candidates));
     return "Ballot Submitted"; 
 }

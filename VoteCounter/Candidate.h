@@ -11,6 +11,7 @@ class Candidate {
         std::string getPrefix() const { return m_prefix; }
         bool isEliminated() const { return m_eliminated; }
         void setEliminated() { m_eliminated = true; }
+        void resetEliminated() { m_eliminated = false; }
         void assignBallot() { ++m_numBallots; }
         size_t getNumberOfAssignedBallots() const { return m_numBallots; }
         void resetAssignment() { m_numBallots = 0; }

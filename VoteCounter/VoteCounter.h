@@ -36,8 +36,8 @@ class VoteCounter {
         // Clears all state
         void reset() { m_ballots.clear(); m_candidates.clear(); m_candidatePrefixMap.clear(); }
 
-        // Clears ballots only. Allows new tallies to be computed from future ballots
-        void clearBallots() { m_ballots.clear(); }
+        // Clears ballots and ballot counts on candidates. Allows new tallies to be computed from future ballots
+        void clear(); 
 
         // Counts votes and declares a winner 
         void tally(std::string& results);

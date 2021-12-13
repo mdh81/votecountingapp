@@ -67,6 +67,8 @@ void VoteCounter::tally(string& results) {
 
 bool VoteCounter::executeCountingRound(vector<Candidate*>& candidatesInContention, string& roundResults) {
 
+    bool hasLowest = false;
+    
     // Step 1: Get Non-exhausted Ballots
     vector<Ballot*> nonExhaustedBallots = getNonExhaustedBallots();
 
@@ -115,12 +117,15 @@ bool VoteCounter::executeCountingRound(vector<Candidate*>& candidatesInContentio
             // All of them had the same rank
             randomIndex = GetRandomInRange(0, candidatesInContention.size() - 1);
         } else {
-            // There was at least one item ranked higher than the duplicate lowest ranked entries
-            randomIndex = GetRandomInRange(0, std::distance(candidatesInContention.begin(), firstUniqueRank - 1));
+            // There was at least one item ranked higher than the duplicate lowest ranked entries. Check if there is only one lowest ranked item
+            // that criteria changes our results message
+            auto dist = std::distance(candidatesInContention.begin(), firstUniqueRank - 1);
+            if ((hasLowest = (dist == 0))) randomIndex = 0;
+            else randomIndex = GetRandomInRange(0, std::distance(candidatesInContention.begin(), firstUniqueRank - 1));
         }
         // Mark the chosen candidate as eliminated
         candidatesInContention.at(randomIndex)->setEliminated();
-        roundResults += "Randomly chose " + candidatesInContention.at(randomIndex)->getPrefix() + " for elimination\n";
+        roundResults += (hasLowest ? "Lowest ranked candidate " : "Randomly chosen candidate ") + candidatesInContention.at(randomIndex)->getPrefix() + " eliminated\n";
         candidatesInContention.erase(candidatesInContention.begin() + randomIndex); 
 
         // Step 5: If there is only candidate remaining, then declare them winner
@@ -128,7 +133,7 @@ bool VoteCounter::executeCountingRound(vector<Candidate*>& candidatesInContentio
             roundResults += candidatesInContention.at(0)->getPrefix() + " is the only candidate remaining and is declared the winner\n";
             return true;
         } else {
-            // Reset ballot assignments so to make sure the evaluation against quota is correct
+            // Reset ballot assignments so to make sure the evaluation against quota is correct for subsequent rounds
             for_each(candidatesInContention.begin(), candidatesInContention.end(),
                     [](Candidate* candidate) { candidate->resetAssignment(); });
             return false;
@@ -146,4 +151,10 @@ vector<Ballot*> VoteCounter::getNonExhaustedBallots() {
     }
     nonExhausted.shrink_to_fit();
     return nonExhausted;
+}
+
+void VoteCounter::clear() {
+    m_ballots.clear();
+    for_each(m_candidates.begin(), m_candidates.end(),
+             [](unique_ptr<Candidate>& candidate) { candidate->resetAssignment(); candidate->resetEliminated();});
 }

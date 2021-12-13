@@ -9,6 +9,6 @@ string TallyCommand::execute(const vector<string>& arguments) {
     string output = "\n";
     VoteCounter& vc = VoteCounter::getInstance();
     vc.tally(output);
-    vc.clearBallots();
+    vc.clear();
     return output;
 }
