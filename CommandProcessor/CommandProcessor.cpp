@@ -35,11 +35,11 @@ void CommandProcessor::cmdLoop(istream& inputStream, ostream& outputStream) cons
                 if (VoteCounter::getInstance().hasCandidate(cmdName)) {
                     cmdArgs.insert(cmdArgs.begin(), cmdName);
                     SubmitBallotCommand().execute(cmdArgs);
+                } else { 
+                    // Handle case where user attempts to run a named command
+                    Command& command = m_commandCatalog.getCommand(cmdName);
+                    outputStream << command.execute(cmdArgs) << endl;
                 }
-                
-                // Handle case where user attempts to run a named command
-                Command& command = m_commandCatalog.getCommand(cmdName);
-                outputStream << command.execute(cmdArgs) << endl;
             }
         } catch(InvalidCommandException& ex) {
             outputStream << "Invalid command. Try help" << endl;

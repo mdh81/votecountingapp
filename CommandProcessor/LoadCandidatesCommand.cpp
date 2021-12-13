@@ -5,6 +5,7 @@
 #include "VoteCounter.h"
 #include <string>
 #include <vector>
+#include <iostream>
 using namespace std;
 
 string LoadCandidatesCommand::execute(const vector<string>& arguments) {
@@ -30,9 +31,9 @@ string LoadCandidatesCommand::execute(const vector<string>& arguments) {
 
     char prefix = 'A';
     for (auto candidateName : candidateNames) {
-        candidateObjects.emplace_back(new Candidate(candidateName, string(1, prefix++)));
+        candidateObjects.push_back(std::make_unique<Candidate>(candidateName, string(1, prefix++)));
     }
-    VoteCounter::getInstance().setCandidates(candidateObjects); 
+    VoteCounter::getInstance().setCandidates(candidateObjects);
 
     return output;
 }

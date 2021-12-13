@@ -6,3 +6,5 @@ add_library(
     )
 
 add_subdirectory(tests)
+
+install(TARGETS votecounter DESTINATION lib)

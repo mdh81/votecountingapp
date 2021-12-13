@@ -13,3 +13,5 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/VoteCounter)
 
 add_subdirectory(tests)
+
+install(TARGETS commandprocessor DESTINATION lib)

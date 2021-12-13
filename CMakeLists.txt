@@ -23,3 +23,7 @@ add_subdirectory(CommandProcessor)
 add_subdirectory(VoteCounter)
 
 add_executable(votecountingapp main.cpp driver.cpp) 
+target_link_libraries(votecountingapp parser commandprocessor votecounter)
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}/CommandProcessor
+)

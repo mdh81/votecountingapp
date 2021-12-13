@@ -14,8 +14,8 @@ string ListCandidatesCommand::execute(const vector<string>& arguments) {
         output += "Candidates list is empty\n";
         return output;
     }
-    for (const auto& candidate : candidates) {
-        output += candidate->getPrefix() + ".\t" + candidate->getName() + "\n";
+    for (size_t i = 0; i < candidates.size(); ++i) { 
+        output += candidates.at(i)->getPrefix() + ".\t" + candidates.at(i)->getName() + (i == candidates.size()-1 ? "" : "\n");
     }
     return output;
 }
