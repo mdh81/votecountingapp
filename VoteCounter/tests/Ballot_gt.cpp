@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "Candidate.h"
+#include "VoteCounter.h"
 #include "Ballot.h"
 using namespace std;
 
@@ -9,15 +10,18 @@ using namespace std;
 // as expected
 TEST(BallotTest, TestGetCandidates) {
     Candidate::CandidateVector candidates;
-    candidates.emplace_back("Candidate 1", "A");
-    candidates.emplace_back("Candidate 2", "B");
-    candidates.emplace_back("Candidate 3", "C");
-    Candidate::CandidateReference itr = candidates.begin();
-    Candidate::CandidateReferences crefs { itr, itr + 1, itr + 2};
-    Ballot ballot(crefs);
+    candidates.push_back(std::make_unique<Candidate>("Candidate 1", "A"));
+    candidates.push_back(std::make_unique<Candidate>("Candidate 2", "B"));
+    candidates.push_back(std::make_unique<Candidate>("Candidate 3", "C"));
+    VoteCounter& vc = VoteCounter::getInstance();
+    // save candidate name, the vector gets moved and its contents are not ready for use
+    // in assertions
+    auto firstStr = candidates.at(0)->getPrefix();
+    vc.setCandidates(candidates);
+    Ballot ballot(vc.getCandidates({"A", "B", "C"}));
     // Assert that ballot's list of candidates are the instances that were passed in
-    const Candidate::CandidateReferences& candidatesOnBallot = ballot.getCandidates();
-    ASSERT_EQ(&candidatesOnBallot.at(0).operator*(), &itr.operator*()) << "Invalid candidates on the ballot";
+    vector<Candidate*> candidatesOnBallot = ballot.getPreferredCandidates();
+    ASSERT_EQ(candidatesOnBallot.at(0)->getPrefix(), firstStr) << "Invalid candidates on the ballot";
 }
 
 TEST(BallotTest, TestExhausted) {
@@ -25,4 +29,17 @@ TEST(BallotTest, TestExhausted) {
     ASSERT_FALSE(ballot.isExhausted()) << "Ballot wrongly marked exhausted";
     ballot.setExhausted();
     ASSERT_TRUE(ballot.isExhausted()) << "Ballot not marked exhausted";
+}
+
+TEST(BallotTest, TestCurrentPreferredCandidate) {
+    Candidate::CandidateVector candidates;
+    candidates.push_back(std::make_unique<Candidate>("Candidate 1", "A"));
+    candidates.push_back(std::make_unique<Candidate>("Candidate 2", "B"));
+    VoteCounter& vc = VoteCounter::getInstance();
+    vc.setCandidates(candidates);
+    Ballot ballot(vc.getCandidates({"A", "B"}));
+    ASSERT_STREQ(ballot.getPreferredCandidate()->getPrefix().data(), "A");
+    ballot.getPreferredCandidate()->setEliminated();
+    ballot.evaluate();
+    ASSERT_STREQ(ballot.getPreferredCandidate()->getPrefix().data(), "B");
 }

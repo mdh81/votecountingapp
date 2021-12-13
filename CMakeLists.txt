@@ -22,4 +22,4 @@ add_subdirectory(Parser)
 add_subdirectory(CommandProcessor)
 add_subdirectory(VoteCounter)
 
-add_executable(votecountingapp main.cpp) 
+add_executable(votecountingapp main.cpp driver.cpp) 

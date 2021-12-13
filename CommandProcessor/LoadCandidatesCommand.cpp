@@ -21,7 +21,7 @@ string LoadCandidatesCommand::execute(const vector<string>& arguments) {
     output += "File Loaded Successfully";
 
     // Build candidate objects and transfer ownership to VoteCounter
-    vector<Candidate> candidateObjects;
+    Candidate::CandidateVector candidateObjects;
     auto& candidateNames = parser.getCandidates();
     if (candidateNames.size() > 26) {
         output += "\nMaximum number of candidates exceeded!";
@@ -30,9 +30,9 @@ string LoadCandidatesCommand::execute(const vector<string>& arguments) {
 
     char prefix = 'A';
     for (auto candidateName : candidateNames) {
-        candidateObjects.emplace_back(candidateName, string(1, prefix++));
+        candidateObjects.emplace_back(new Candidate(candidateName, string(1, prefix++)));
     }
-    VoteCounter::getInstance().setCandidates(std::move(candidateObjects)); 
+    VoteCounter::getInstance().setCandidates(candidateObjects); 
 
     return output;
 }
