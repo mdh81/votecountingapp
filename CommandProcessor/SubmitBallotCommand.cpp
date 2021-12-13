@@ -22,6 +22,6 @@ string SubmitBallotCommand::execute(const vector<string>& arguments) {
     }
     if(candidates.empty()) { return "Ballot Rejected: No valid choices on the ballot"; } 
     
-    voteCounter.processBallot(Ballot(candidates));
+    voteCounter.addBallot(Ballot(candidates));
     return "Ballot Submitted"; 
 }

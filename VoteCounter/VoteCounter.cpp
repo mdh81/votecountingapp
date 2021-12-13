@@ -27,7 +27,3 @@ bool VoteCounter::hasCandidate(const std::string& prefix) const {
     auto itr = m_candidatePrefixMap.find(prefix);
     return m_candidatePrefixMap.find(prefix) != m_candidatePrefixMap.end();
 }
-
-void VoteCounter::processBallot(Ballot&& ballot) {
-    m_ballots.push_back(std::move(ballot));
-}

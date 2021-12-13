@@ -29,7 +29,7 @@ class VoteCounter {
 
         // Getters and setters for Ballots
         // NOTE: Assumes ownership of the input Ballot object
-        void processBallot(Ballot&& ballot);
+        void addBallot(Ballot&& ballot) { m_ballots.push_back(std::move(ballot)); }
         const Ballot::BallotVector& getBallots() const { return m_ballots; }
 
         // Clears the state

@@ -18,7 +18,7 @@ class SubmitBallotCommandTest : public testing::Test {
 
 TEST_F(SubmitBallotCommandTest, TestValidSubmission) {
     SubmitBallotCommand cmd;
-    cmd.execute({"A", "B", "C"});
+    ASSERT_STREQ(cmd.execute({"A", "B", "C"}).data(), "Ballot Submitted");
     const Ballot::BallotVector& bv = VoteCounter::getInstance().getBallots();
     ASSERT_EQ(bv.size(), 1) << "Ballot not registered as expected";
     ASSERT_EQ(bv[0].getCandidates().size(), 3) << "Ballot does not have the right number of candidates";
@@ -30,7 +30,7 @@ TEST_F(SubmitBallotCommandTest, TestValidSubmission) {
 TEST_F(SubmitBallotCommandTest, TestInValidSubmission) {
     SubmitBallotCommand cmd;
     // Some invalid entries
-    cmd.execute({"A", "B", "C", "A" /*duplicate*/, "Q" /*invalid*/});
+    ASSERT_STREQ(cmd.execute({"A", "B", "C", "A" /*duplicate*/, "Q" /*invalid*/}).data(), "Ballot Submitted");
     const Ballot::BallotVector& bv = VoteCounter::getInstance().getBallots();
     ASSERT_EQ(bv.size(), 1) << "Ballot not registered as expected";
     ASSERT_EQ(bv[0].getCandidates().size(), 3) << "Ballot does not have the right number of candidates";
@@ -38,6 +38,6 @@ TEST_F(SubmitBallotCommandTest, TestInValidSubmission) {
     ASSERT_EQ(bv[0].getCandidates()[1]->getName(), "Candidate 2") << "Candidates on the ballot are not ordered correctly";
     ASSERT_EQ(bv[0].getCandidates()[2]->getName(), "Candidate 3") << "Candidates on the ballot are not ordered correctly";
     // All invalid entries
-    cmd.execute({"X", "Y", "Z"});
+    ASSERT_STREQ(cmd.execute({"X", "Y", "Z"}).data(), "Ballot Rejected: No valid choices on the ballot");
     ASSERT_EQ(bv.size(), 1) << "Invalid ballot not rejected";
 }
