@@ -7,7 +7,7 @@
 class Ballot {
     public:
         Ballot(const Candidate::CandidateReferences& candidates) : m_candidates(candidates) { m_exhausted = false; }
-        Candidate::CandidateReferences getCandidates() const { return m_candidates; }
+        const Candidate::CandidateReferences& getCandidates() const { return m_candidates; }
         void setExhausted() { m_exhausted = true; }
         bool isExhausted() const { return m_exhausted; }
 
