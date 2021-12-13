@@ -2,4 +2,3 @@ load <Candidates File>
 list
 tally
 results <Candidate Name>
-help

@@ -6,7 +6,9 @@ using namespace std;
 
 string TallyCommand::execute(const vector<string>& arguments) {
     if (!arguments.empty()) { return getUsage(); }
-    string output;
-    VoteCounter::getInstance().tally(output);
+    string output = "\n";
+    VoteCounter& vc = VoteCounter::getInstance();
+    vc.tally(output);
+    vc.clearBallots();
     return output;
 }

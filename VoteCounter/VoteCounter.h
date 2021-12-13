@@ -33,8 +33,11 @@ class VoteCounter {
         void addBallot(std::unique_ptr<Ballot>&& ballot) { m_ballots.push_back(std::move(ballot)); }
         const Ballot::BallotVector& getBallots() const { return m_ballots; }
 
-        // Clears the state
+        // Clears all state
         void reset() { m_ballots.clear(); m_candidates.clear(); m_candidatePrefixMap.clear(); }
+
+        // Clears ballots only. Allows new tallies to be computed from future ballots
+        void clearBallots() { m_ballots.clear(); }
 
         // Counts votes and declares a winner 
         void tally(std::string& results);

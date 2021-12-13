@@ -20,5 +20,5 @@ TEST(ListCandidatesCommandTest, TestListContents) {
     LoadCandidatesCommand loadCmd;
     loadCmd.execute({"candidates.txt"});
     ListCandidatesCommand listCmd;
-    ASSERT_STREQ(listCmd.execute({}).data(), "A.\tCandidate 1\nB.\tCandidate 2\nC.\tCandidate 3\n") << "Invalid candidates list";
+    ASSERT_STREQ(listCmd.execute({}).data(), "A.\tCandidate 1\nB.\tCandidate 2\nC.\tCandidate 3") << "Invalid candidates list";
 }
