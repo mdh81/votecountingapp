@@ -1,5 +1,8 @@
 This is a C++ application that implements a preferred voting system. 
 
+![Supported Use Cases](https://github.com/mdh81/votecountingapp/blob/master/votecountingapp_usage.gif)
+
+
 #### Build
 
 CMake is required to build this application. Do the following on the command line to build it:
@@ -39,4 +42,7 @@ Implementation and tests for the parser service. This service implements file pa
 
 ##### CommandProcessor
 Implementation and tests for the command processor service. This services implements a command loop, a command catalog, and a series of commands that the user can enter on the app's command prompt
+
+##### VoteCounter
+Implementation for the main service for this app.
 
